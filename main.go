@@ -51,15 +51,12 @@ const API_KEY string = "3be491824e234b96aeb121640241702"
 func main() {
 
 	q := "istanbul"
-
 	if len(os.Args) >= 2 {
 		q = os.Args[1]
 	}
 
 	apiUrl := "https://api.weatherapi.com/v1/forecast.json?key=" + API_KEY + "&q=" + q +"&days=1&aqi=no&alerts=no"
-
 	res, err := http.Get(apiUrl)
-
 	if err != nil {
 		panic(err)
 	}
@@ -92,12 +89,11 @@ func main() {
 	)
 
 	for _, hour := range hours {
-
 		date := time.Unix(hour.TimeEpoch, 0)
 		if date.Before(time.Now()) {
 			continue
 		}
-
+		
 		message := fmt.Sprintf(
 			"%s   🌡️ %.0fC    🌧️ %.0f%%    %s",
 			date.Format("15:04"),
