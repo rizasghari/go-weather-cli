@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
+	"github.com/joho/godotenv"
 )
 
 type Location struct {
@@ -46,16 +47,15 @@ type Weather struct {
 	Forecast Forecast `json:"forecast"`
 }
 
-const API_KEY string = "3be491824e234b96aeb121640241702"
-
 func main() {
+	godotenv.Load(".env")
 
 	q := "istanbul"
 	if len(os.Args) >= 2 {
 		q = os.Args[1]
 	}
 
-	apiUrl := "https://api.weatherapi.com/v1/forecast.json?key=" + API_KEY + "&q=" + q +"&days=1&aqi=no&alerts=no"
+	apiUrl := "https://api.weatherapi.com/v1/forecast.json?key=" + os.Getenv("WEATHER_API_KEY") + "&q=" + q +"&days=1&aqi=no&alerts=no"
 	res, err := http.Get(apiUrl)
 	if err != nil {
 		panic(err)
